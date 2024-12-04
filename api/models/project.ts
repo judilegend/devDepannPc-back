@@ -1,7 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/database";
 import WorkPackage from "./workpackage";
-import Sprint from "./sprint";
 
 class Project extends Model {
   public id!: number;
@@ -81,13 +80,6 @@ Project.init(
 Project.hasMany(WorkPackage, {
   foreignKey: "projectId",
   as: "workPackages",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
-// In Project model, add this association
-Project.hasMany(Sprint, {
-  foreignKey: "projectId",
-  as: "sprints",
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
 });

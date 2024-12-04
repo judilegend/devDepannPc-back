@@ -18,6 +18,5 @@ router.delete("/:id", SprintController.deleteSprint);
 router.post("/:id/tasks", SprintController.addTaskToSprint);
 router.get("/:id/progress", SprintController.getSprintProgress);
 router.get("/:id/active-tasks", SprintController.getActiveSprintTasks);
-router.get("/project/:projectId/sprints", SprintController.getSprintsByProject);
 
 export default router;

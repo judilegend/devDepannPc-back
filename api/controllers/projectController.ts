@@ -1,14 +1,22 @@
 import * as projectService from "../services/projectService";
 import { Request, Response } from "express";
 
-export const createProject = async (req: Request, res: Response) => {
+export const createProject = async (
+  req: Request & { user?: any },
+  res: Response
+) => {
   try {
-    const project = await projectService.createProject(req.body);
+    const projectData = {
+      ...req.body,
+      createdBy: req.user.id,
+    };
+    const project = await projectService.createProject(projectData);
     res.status(201).json(project);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error creating project", error: error.message });
+    res.status(500).json({
+      message: "Error creating project",
+      error: "An unknown error occurred",
+    });
   }
 };
 
@@ -17,9 +25,10 @@ export const getAllProjects = async (req: Request, res: Response) => {
     const projects = await projectService.getAllProjects();
     res.json(projects);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching projects", error: error.message });
+    res.status(500).json({
+      message: "Error fetching projects",
+      error: "An unknown error occurred",
+    });
   }
 };
 
@@ -32,9 +41,10 @@ export const getProjectById = async (req: Request, res: Response) => {
     }
     res.json(project);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching project", error: error.message });
+    res.status(500).json({
+      message: "Error fetching project",
+      error: "An unknown error occurred",
+    });
   }
 };
 
@@ -49,7 +59,7 @@ export const updateProject = async (req: Request, res: Response) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error updating project", error: error.message });
+      .json({ message: "Error updating project", error: "an unknown error" });
   }
 };
 
@@ -61,6 +71,6 @@ export const deleteProject = async (req: Request, res: Response) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error deleting project", error: error.message });
+      .json({ message: "Error deleting project", error: "an unknown error" });
   }
 };

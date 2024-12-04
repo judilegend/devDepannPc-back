@@ -4,11 +4,7 @@ import SprintService from "../services/sprintService";
 class SprintController {
   async createSprint(req: Request, res: Response) {
     try {
-      const sprintData = {
-        ...req.body,
-        projectId: req.body.projectId,
-      };
-      const sprint = await SprintService.createSprint(sprintData);
+      const sprint = await SprintService.createSprint(req.body);
       res.status(201).json(sprint);
     } catch (error: any) {
       res.status(400).json({ error: error.message });
@@ -18,16 +14,6 @@ class SprintController {
   async getAllSprints(req: Request, res: Response) {
     try {
       const sprints = await SprintService.getAllSprints();
-      res.json(sprints);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-  async getSprintsByProject(req: Request, res: Response) {
-    try {
-      const sprints = await SprintService.getSprintsByProject(
-        Number(req.params.projectId)
-      );
       res.json(sprints);
     } catch (error: any) {
       res.status(500).json({ error: error.message });

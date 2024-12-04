@@ -58,8 +58,6 @@ const defineAssociations = () => {
   Sprint.hasMany(Tache, {
     foreignKey: "sprintId",
     as: "tasks",
-    onDelete: "SET NULL",
-    onUpdate: "CASCADE",
   });
 };
 

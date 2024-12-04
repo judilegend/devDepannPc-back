@@ -1,14 +1,10 @@
-import sequelize from "../config/database";
 import Sprint from "../models/sprint";
 import Task from "../models/tache";
-import { Op, QueryTypes } from "sequelize";
+import { Op } from "sequelize";
 
 class SprintService {
   async createSprint(sprintData: any) {
-    return await Sprint.create({
-      ...sprintData,
-      projectId: sprintData.projectId,
-    });
+    return await Sprint.create(sprintData);
   }
 
   async getAllSprints() {
@@ -21,25 +17,6 @@ class SprintService {
       ],
       order: [["startDate", "DESC"]],
     });
-  }
-  async getSprintsByProject(projectId: number) {
-    try {
-      const sprints = await sequelize.query(
-        `SELECT s.*, t.id as task_id 
-       FROM Sprints s 
-       LEFT JOIN Taches t ON t.sprintId = s.id 
-       WHERE s.projectId = :projectId`,
-        {
-          replacements: { projectId },
-          type: QueryTypes.SELECT,
-        }
-      );
-
-      return sprints.length > 0 ? sprints : [];
-    } catch (error) {
-      console.error("Database error:", error);
-      return [];
-    }
   }
 
   async getSprintById(id: number) {
