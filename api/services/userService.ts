@@ -1,5 +1,5 @@
 import User from "../models/user";
-import { CreateUserDTO, UpdateUserDTO } from "@/types/user";
+import { CreateUserDTO, UpdateUserDTO } from "../types/user";
 
 export const userService = {
   createUser: async (userData: CreateUserDTO) => {

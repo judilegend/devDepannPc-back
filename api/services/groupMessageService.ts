@@ -75,7 +75,8 @@ class GroupMessageService {
       include: [
         {
           model: User,
-          through: RoomMember,
+          as: "members",
+          through: { attributes: [] },
           attributes: ["id", "username", "is_online"],
         },
         {
@@ -87,7 +88,6 @@ class GroupMessageService {
     });
     return room;
   }
-
   async getRoomMessages(roomId: number) {
     const messages = await GroupMessage.findAll({
       where: { room_id: roomId },
@@ -205,7 +205,7 @@ class GroupMessageService {
               {
                 model: User,
                 as: "members",
-                through: RoomMember,
+                // through: RoomMember,
                 where: { id: userId },
                 attributes: [],
               },

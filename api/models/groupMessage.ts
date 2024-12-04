@@ -138,8 +138,8 @@ GroupMessage.init(
 
 // Update associations with clear aliases
 // First, clear all existing associations
-Room.associations = {};
-User.associations = {};
+// Room.associations = {};
+// User.associations = {};
 
 // Then define the associations with explicit aliases
 Room.belongsToMany(User, {
